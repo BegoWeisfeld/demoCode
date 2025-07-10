@@ -85,7 +85,7 @@
     "@storybook/addon-essentials": "^9.0.16",
     "@storybook/addon-onboarding": "^9.0.16",
     "@storybook/addon-viewport": "^9.0.8",
-    "@storybook/addon-vitest": "9.0.15",
+    "@storybook/addon-vitest": "9.0.16",
     "@storybook/react": "^9.0.15",
     "@storybook/react-vite": "9.0.15",
     "@storybook/test": "^8.6.14",
@@ -102,7 +102,6 @@
     "storybook": "9.0.16",
     "typescript": "4.9.5",
     "typescript-eslint": "^8.24.1",
-    "vite": "^5.3.1",
-    "vitest": "3.3.0"
+    "vite": "^5.3.1"
   }
 }
