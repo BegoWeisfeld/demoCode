@@ -89,7 +89,7 @@ export const TopMenu: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 180,
+              width: 185,
               px: 1,
               position: "relative",
             }}
