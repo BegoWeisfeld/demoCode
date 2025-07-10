@@ -1,0 +1,15 @@
+{
+  "files": [],
+  "moduleResolution": "Node",
+  "compilerOptions": {
+    // ... your existing options ...
+    "jsx": "react-jsx",
+    "allowJsx": true,
+    // allow JSX in .ts/.js files
+    "preserveJsx": true
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

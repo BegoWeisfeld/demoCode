@@ -1,0 +1,32 @@
+
+# Workflow name
+name: 'Chromatic Deployment'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic:
+    name: 'Run Chromatic'
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # Remove or ignore your corporate .npmrc
+      # ⚠️ Remove any project‐level npmrc so it can’t override the registry:
+      - name: Remove Yarn artifacts
+        run: rm -f .yarnrc.yml yarn.lock
+
+      - name: Install dependencies via npm
+        run: npm install
+
+      - name: Publish to Chromatic
+      - uses: chromaui/action@latest
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}

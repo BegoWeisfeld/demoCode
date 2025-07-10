@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "EB Garamond";
+    font-style: normal;
+    font-weight: 400;
+    src: url(fonts/EB_Garamond-normal-400.woff) format("woff")
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    src: url(fonts/Source_Sans_Pro-normal-400.woff) format("woff")
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 700;
+    src: url(fonts/Source_Sans_Pro-normal-700.woff) format("woff")
+}
+
+@font-face {
+    font-family: berenberg;
+    src: url(fonts/icons.eot?b632c5db25346bed9e484584d38950bf);
+    src: url(fonts/icons.eot?#iefix) format("embedded-opentype"), url(fonts/icons.woff2?b632c5db25346bed9e484584d38950bf) format("woff2"), url(fonts/icons.woff?b632c5db25346bed9e484584d38950bf) format("woff"), url(fonts/icons.ttf?b632c5db25346bed9e484584d38950bf) format("truetype"), url(fonts/icons.svg?b632c5db25346bed9e484584d38950bf#berenberg) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
