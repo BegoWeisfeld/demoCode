@@ -21,7 +21,7 @@ jobs:
         run: rm -f .yarnrc.yml yarn.lock
 
       - name: Install dependencies via npm
-        run: npm install
+        run: yarn
 
         # Publishing on chromatic's side new
       - uses: chromaui/action@latest
