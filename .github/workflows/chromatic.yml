@@ -17,8 +17,8 @@ jobs:
           fetch-depth: 0
       # Remove or ignore your corporate .npmrc
       # ⚠️ Remove any project‐level npmrc so it can’t override the registry:
-      - name: Remove Yarn artifacts
-        run: rm -f .yarnrc.yml yarn.lock
+#      - name: Remove Yarn artifacts
+#        run: rm -f .yarnrc.yml yarn.lock
 
       - name: Install dependencies via npm
         run: yarn
