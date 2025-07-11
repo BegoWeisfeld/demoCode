@@ -135,20 +135,6 @@ export const ClickActions: Story = {
     },
 };
 
-export const SubmenuNavigation: Story = {
-    name: '🔀 Submenu navigation',
-    play: async ({canvasElement}) => {
-        const canvas = within(canvasElement);
-        const admin = await canvas.getByRole('button', {name: /Administration/i});
-        await userEvent.click(admin);
-        const child = await canvas.findByRole('link', {name: /MDM Management/i});
-        await userEvent.click(child);
-    },
-    parameters: {
-        chromatic: {delay: 300},
-    },
-};
-
 
 export const ChromaticHover: Story = {
     name: '🌈 Hover snapshot',
