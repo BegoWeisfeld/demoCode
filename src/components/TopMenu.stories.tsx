@@ -1,79 +1,93 @@
 // src/components/TopMenu/TopMenu.stories.tsx
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { TopMenu } from './top-menu';
-import { MemoryRouter } from 'react-router-dom';
-import { KeycloakContext } from '../context/KeycloakContext';
-import { ThemeProvider } from '@mui/material/styles';
+import type {Meta, StoryObj} from '@storybook/react';
+import {TopMenu} from './top-menu';
+import {MemoryRouter} from 'react-router-dom';
+import {KeycloakContext, KeycloakContextValue} from '../context/KeycloakContext';
+import {ThemeProvider} from '@mui/material/styles';
 import createCustomTheme from '../styles/bego-theme';
-import { COLOR_MODES } from '../util/profile-utils';
+import {COLOR_MODES} from '../util/profile-utils';
 import CssBaseline from '@mui/material/CssBaseline';
-import {userEvent, within} from "storybook/test";
+import {userEvent, within} from 'storybook/test';
+import {Environment} from '../config';
 
-// A fake KeycloakProvider that says “yes” to every role
-const AllRolesProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (
-  <KeycloakContext.Provider
-    value={{
-      auth: true,
-      keycloak: { token: 'fake' },
-      dispatch: () => {},
-      hasRole: () => true,
-    } as any}
-  >
-    {children}
-  </KeycloakContext.Provider>
-);
-const theme = createCustomTheme(COLOR_MODES.LIGHT);
+// build a flat list of all possible roles from your Environment
+const allRoles = Object.values(Environment.role).flat() as string[];
+
+// default Keycloak context factory
+const makeContext = (allowed: string[]): KeycloakContextValue => ({
+    auth: true,
+    keycloak: {token: 'fake'},
+    dispatch: () => {
+    },
+    hasRole: (required: string[]) => required.every(r => allowed.includes(r)),
+});
 
 const meta: Meta<typeof TopMenu> = {
-  title: 'Navigation/TopMenu',
-  component: TopMenu,
-  decorators: [
-    (Story, context) => {
-      // Look for `parameters.initialEntries`, default to ['/']
-      const initialEntries: string[] = context.parameters.initialEntries ?? ['/'];
-
-      return (
-        <MemoryRouter initialEntries={initialEntries}>
-          <AllRolesProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline/>
-              <Story/>
-            </ThemeProvider>
-          </AllRolesProvider>
-        </MemoryRouter>
-      );
+    title: 'Navigation/TopMenu',
+    component: TopMenu,
+    argTypes: {
+        // let user choose light vs dark
+        colorMode: {
+            control: {type: 'radio'},
+            options: Object.values(COLOR_MODES),
+        },
+        // let user pick which roles are granted
+        roles: {
+            control: {
+                type: 'inline-check',
+                // each checkbox will correspond to one unique role
+                options: allRoles,
+            },
+            description: 'Which user roles are granted',
+        },
+        // let user pick the starting route
+        initialEntries: {
+            control: 'array',
+            description: 'React-Router start path',
+        },
     },
-  ],
-  parameters: {
-    initialEntries: ['/'],
-  },
+    args: {
+        colorMode: COLOR_MODES.LIGHT,
+        roles: allRoles,
+        initialEntries: ['/dashboard'],
+    },
+    decorators: [
+        (Story, {args}) => (
+            <MemoryRouter initialEntries={args.initialEntries}>
+                <KeycloakContext.Provider value={makeContext(args.roles)}>
+                    <ThemeProvider theme={createCustomTheme(args.colorMode)}>
+                        <CssBaseline/>
+                        <Story/>
+                    </ThemeProvider>
+                </KeycloakContext.Provider>
+            </MemoryRouter>
+        ),
+    ],
 };
 export default meta;
 
 type Story = StoryObj<typeof TopMenu>;
 
-// The default “top-level” menu
+// basic default
 export const Default: Story = {};
 
-// Show the menu with one of its submenus open by default
+// submenu already expanded via route+play
 export const WithSubmenuOpen: Story = {
-  parameters: {
-    // switch to the real "/administration" route so that Admin is highlighted
-    initialEntries: ['/administration'],
-  },
-  play: async ({ canvasElement }) => {
-    // find the rendered Tree, click the "Administration" button to open its submenu
-    const canvas = within(canvasElement);
-    const adminBtn = await canvas.getByRole('button', { name: /Administration/i });
-    await userEvent.click(adminBtn);
-  },
+    args: {initialEntries: ['/administration']},
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        const adminBtn = await canvas.getByRole('button', {name: /Administration/i});
+        await userEvent.click(adminBtn);
+    },
 };
 
+// highlight Dashboard tab
 export const DashboardActive: Story = {
-  parameters: { initialEntries: ['/dashboard'] },
+    args: {initialEntries: ['/dashboard']},
 };
 
+// highlight Client Trades tab
 export const ClientTradesActive: Story = {
-  parameters: { initialEntries: ['/client-trades'] },
+    args: {initialEntries: ['/client-trades']},
 };

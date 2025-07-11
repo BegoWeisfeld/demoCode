@@ -89,7 +89,7 @@ export const TopMenu: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 185,
+              width: 180,
               px: 1,
               position: "relative",
             }}
@@ -107,7 +107,7 @@ export const TopMenu: React.FC = () => {
                   backgroundColor: "transparent",
                   "&:hover": {
                     backgroundColor: "transparent",
-                    color: highlightColor,
+                    color: 'blue',
                   },
                 }}
               >
@@ -129,7 +129,7 @@ export const TopMenu: React.FC = () => {
                   backgroundColor: "transparent",
                   "&:hover": {
                     backgroundColor: "transparent",
-                    color: highlightColor,
+                    color: 'blue',
                   },
                 }}
               >
