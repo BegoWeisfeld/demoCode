@@ -100,7 +100,7 @@ export const TopMenu: React.FC = () => {
                 disableRipple
                 disableTouchRipple
                 sx={{
-                  color: highlightColor,
+                  color: 'blue',
                   fontWeight: isOpen ? 600 : 400,
                   textTransform: "none",
                   whiteSpace: "nowrap",
@@ -122,7 +122,7 @@ export const TopMenu: React.FC = () => {
                 component={NavLink}
                 to={entry.path}
                 sx={{
-                  color: highlightColor,
+                  color: 'blue',
                   fontWeight: isActiveEntry(entry) ? 600 : 400,
                   textTransform: "none",
                   whiteSpace: "nowrap",
