@@ -8,8 +8,8 @@ import {ThemeProvider} from '@mui/material/styles';
 import createCustomTheme from '../styles/bego-theme';
 import {COLOR_MODES} from '../util/profile-utils';
 import CssBaseline from '@mui/material/CssBaseline';
-import {userEvent, within} from 'storybook/test';
 import {Environment} from '../config';
+import { userEvent, within } from '@storybook/testing-library';
 
 // build a flat list of all possible roles from your Environment
 const allRoles = Object.values(Environment.role).flat() as string[];
@@ -91,3 +91,79 @@ export const DashboardActive: Story = {
 export const ClientTradesActive: Story = {
     args: {initialEntries: ['/client-trades']},
 };
+
+export const CatchingClickMatchingBooks: Story = {
+    // start on Dashboard so MatchingBooks is NOT active
+    parameters: { initialEntries: ['/dashboard'] },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        // find the <a> (not a <button>!) by its accessible name
+        const link = await canvas.getByRole('link', { name: /Matching Books/i });
+
+        // hover it — this will light it up in primary.main (orange)
+        await userEvent.click(link);
+
+        // pause briefly so you can actually *see* the hover
+        await new Promise((r) => setTimeout(r, 250));
+    },
+};
+
+export const HoverState: Story = {
+    name: '🌈 Hover state (auto-snapshot)',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const link = await canvas.getByRole('link', { name: /Matching Books/i });
+        await userEvent.hover(link);
+        // leave it hovered for 200ms so Chromatic can take the snapshot
+        await new Promise((r) => setTimeout(r, 200));
+    },
+    parameters: {
+        chromatic: { delay: 200 }, // Chromatic will snapshot after your play() finishes + delay
+    },
+};
+
+
+export const ClickActions: Story = {
+    name: '🖱️ Click actions',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        // click a few items to see them pop in the Actions panel
+        await userEvent.click(await canvas.getByRole('link', { name: /Dashboard/i }));
+        await userEvent.click(await canvas.getByRole('link', { name: /Matching Books/i }));
+        await userEvent.click(await canvas.findByRole('button', { name: /Administration/i }));
+    },
+};
+
+export const SubmenuNavigation: Story = {
+    name: '🔀 Submenu navigation',
+    play: async ({canvasElement}) => {
+        const canvas = within(canvasElement);
+        const admin = await canvas.getByRole('button', {name: /Administration/i});
+        await userEvent.click(admin);
+        const child = await canvas.findByRole('link', {name: /MDM Management/i});
+        await userEvent.click(child);
+    },
+    parameters: {
+        chromatic: {delay: 300},
+    },
+};
+
+
+export const ChromaticHover: Story = {
+    name: '🌈 Hover snapshot',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const link = await canvas.getByRole('link', { name: /Matching Books/i });
+        await userEvent.hover(link);
+        // leave the hover state for a moment
+        await new Promise((r) => setTimeout(r, 200));
+    },
+    parameters: {
+        chromatic: {
+            delay: 200,           // wait for the hover styles to settle
+            viewports: ['responsive'],
+        },
+    },
+};
+

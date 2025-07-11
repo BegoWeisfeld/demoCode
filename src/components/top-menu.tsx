@@ -107,7 +107,7 @@ export const TopMenu: React.FC = () => {
                   backgroundColor: "transparent",
                   "&:hover": {
                     backgroundColor: "transparent",
-                    color: 'blue',
+                    color: highlightColor,
                   },
                 }}
               >
@@ -129,7 +129,7 @@ export const TopMenu: React.FC = () => {
                   backgroundColor: "transparent",
                   "&:hover": {
                     backgroundColor: "transparent",
-                    color: 'blue',
+                    color: highlightColor,
                   },
                 }}
               >

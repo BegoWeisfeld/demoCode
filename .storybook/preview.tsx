@@ -10,6 +10,20 @@ import '../src/styles/css/global.css';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-balham.css';
 
+if (typeof globalThis.location === 'undefined') {
+    globalThis.location = {
+        href: '',
+        origin: '',
+        protocol: 'http:',
+        host: 'localhost',
+        hostname: 'localhost',
+        port: '',
+        pathname: '',
+        search: '',
+        hash: '',
+    } as Location;
+}
+
 const lightTheme = createCustomTheme(COLOR_MODES.LIGHT);
 
 export const decorators = [
