@@ -45,7 +45,9 @@
     "web-vitals": "^2.1.4"
   },
   "resolutions": {
-    "react-error-overlay": "6.0.9",
+    "react-error-overlay": "6.0.9"
+  },
+  "overrides": {
     "rollup": "4.29.1"
   },
   "scripts": {
