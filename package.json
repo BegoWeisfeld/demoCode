@@ -45,7 +45,8 @@
     "web-vitals": "^2.1.4"
   },
   "resolutions": {
-    "react-error-overlay": "6.0.9"
+    "react-error-overlay": "6.0.9",
+    "rollup": "4.29.1"
   },
   "scripts": {
     "start:local": "ncp ./src/config/config.local.js ./public/config.js && vite --port 30000",
