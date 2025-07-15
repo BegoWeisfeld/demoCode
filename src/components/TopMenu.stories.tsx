@@ -119,3 +119,34 @@ export const ClickActions: Story = {
         await userEvent.click(await canvas.findByRole('button', { name: /Administration/i }));
     },
 };
+
+export const HoverState: Story = {
+    name: 'Hover state (auto-snapshot)',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const link = await canvas.getByRole('link', { name: /Matching Books/i });
+        await userEvent.hover(link);
+        // leave it hovered for 200ms so Chromatic can take the snapshot
+        await new Promise((r) => setTimeout(r, 200));
+    },
+    parameters: {
+        chromatic: { delay: 200 }, // Chromatic will snapshot after your play() finishes + delay
+    },
+};
+
+export const ChromaticHover: Story = {
+    name: '🌈 Hover snapshot',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const link = await canvas.getByRole('link', { name: /Matching Books/i });
+        await userEvent.hover(link);
+        // leave the hover state for a moment
+        await new Promise((r) => setTimeout(r, 200));
+    },
+    parameters: {
+        chromatic: {
+            delay: 200,           // wait for the hover styles to settle
+            viewports: ['responsive'],
+        },
+    },
+};
