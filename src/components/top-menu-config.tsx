@@ -31,28 +31,28 @@ export const topMenuEntries: TopMenuItem[] = [
     key: "market-trade",
     label: "Market Trades",
     path: "/market-trades",
-    icon: <AssessmentIcon/>,
+    icon: <ShoppingCartIcon/>,
     roles: Environment.role.market_trade
   },
   {
     key: "client-trades",
     label: "Client Trades",
     path: "/client-trades",
-    icon: <ShoppingCartIcon/>,
+    icon: <AssessmentIcon/>,
     roles: Environment.role.market_trade
   },
   {
     key: "variation-margins",
     label: "Variation Margin",
     path: "/variation-margins",
-    icon: <PriceChangeIcon/>,
+    icon: <ListAltIcon/>,
     roles: Environment.role.variation_margin
   },
   {
     key: "transaction-reporting",
     label: "Transaction Reporting",
     path: "/transaction-reporting",
-    icon: <ListAltIcon/>,
+    icon: <PriceChangeIcon/>,
     roles: Environment.role.transaction_reporting
   },
   {
