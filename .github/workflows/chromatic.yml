@@ -21,7 +21,7 @@ jobs:
         run: rm -f .yarnrc.yml yarn.lock
 
       - name: Install dependencies via npm
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
