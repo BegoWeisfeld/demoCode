@@ -57,7 +57,7 @@ export const topMenuEntries: TopMenuItem[] = [
   },
   {
     key: "emir-reporting",
-    label: "EMIR Reporting",
+    label: "EMIR Reporting Test",
     path: "/emir-reporting",
     icon: <ListAltIcon/>,
     roles: Environment.role.emir_reporting
@@ -78,7 +78,7 @@ export const topMenuEntries: TopMenuItem[] = [
       },
       {
         key: "mdm-management",
-        label: "MDM Management",
+        label: "MDM Management Test",
         path: "/mdm-management",
         icon: <ManageAccountsIcon style={{ fontSize: 20 }} />,
         roles: Environment.role.administration_mdm,
